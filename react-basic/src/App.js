@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import TOC from './components/TOC'
 import Footer from './components/Footer'
+import Content from './components/Content'
 
 class App extends Component {
   constructor(props) {
@@ -19,11 +20,21 @@ class App extends Component {
   }
 
   render() {
+    console.log('App render');
+    var _title, _desc = null;
+    if(this.state.mode === 'welcome'){
+      _title = this.state.welcome.title;
+      _desc = this.state.welcome.desc;
+    }else if(this.state.mode === 'read'){
+      _title = this.state.contents[0].title;
+      _desc = this.state.contents[0].desc;
+    }
     return (
       <div className='App'>
         <Subject title={this.state.subject.title} sub={this.state.subject.sub}></Subject>
         <TOC data={this.state.contents} />
         <Footer txt="this footer"/>
+        <Content title={_title} desc={_desc}></Content>
       </div>
     );
   }
