@@ -5,9 +5,13 @@ import Modal from './components/Modal';
 function App() {
   let logo = 'ReactBlog';
   let [title, titleChange] = useState(['남자 코트 추천', '강남 우동맛집', '파이썬독학']);
-  let [good, goodPlus] = useState(0);
+  let [good, goodPlus] = useState([0, 10,20]);
   let [hi, hiChange] = useState('hi');
   let [modal2, setModal] = useState(false);
+
+  [1,2,3].map(function(a) {
+    console.log(a)
+  });
 
   return (
     <div className="App">
@@ -15,7 +19,7 @@ function App() {
         <h4>{logo}</h4>  
       </div>
 
-      <button onClick={()=>{
+      {/* <button onClick={()=>{
         let copy = [...title];
         copy[0] = '여자 코트';
         titleChange(copy);
@@ -32,8 +36,22 @@ function App() {
       <div className="list">
         <h4>{title[2]}</h4>
         <p>2월 17일 발행</p>
-      </div>
+      </div> */}
 
+      {
+        title.map(function(a, i) {
+          return (
+            <div className="list">
+              <h4>{title[i]} <span onClick={()=>{
+                let copy = [...good];
+                copy[i] = copy[i] + 1;
+                goodPlus(copy);
+                }}>👍 score: {good[i]}</span></h4> {/* {a}*/}
+              <p>2월 17일 발행</p>
+            </div>
+          )
+        })
+      }
       
 
      <Modal></Modal>
