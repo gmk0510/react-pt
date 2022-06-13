@@ -37,6 +37,7 @@ function App() {
       
 
      <Modal></Modal>
+     <Modal2></Modal2>
      <button onClick={()=>{modal2 == true ? setModal(false) : setModal(true)}}>show modalScreen</button>
       {
         modal2 == false ? <Modal2/> : null 
