@@ -8,6 +8,7 @@ function App() {
   let [hi, hiChange] = useState('hi');
   let [modal, setModal] = useState(false);
   let [title2, setTitle] = useState(0);
+  let [입력값, 입력값변경] = useState('');
 
   [1,2,3].map(function(a) {
     console.log(a)
@@ -23,18 +24,30 @@ function App() {
         title.map(function(a, i) {
           return (
             <div className="list">
-              <h4 onClick={()=>{modal == true ? setModal(false) : setModal(true); setTitle(i)}}>{title[i]} <span onClick={()=>{
+              <h4 onClick={()=>{modal == true ? setModal(false) : setModal(true); setTitle(i)}}>{title[i]} <span onClick={(e)=>{
                 let copy = [...good];
                 copy[i] = copy[i] + 1;
                 goodPlus(copy);
+                e.stopPropagation();
                 }}>👍 score: {good[i]}</span></h4> {/* {a}*/}
               <p>2월 17일 발행</p>
+              <button onClick={()=>{
+                let copy = [...title];
+                copy.splice(i, 1);
+                titleChange(copy);
+              }}>삭제</button>
             </div>
           )
         })
       }
-      
 
+      <input onChange={(e)=>{
+        입력값변경(e.target.value); 
+      }}></input>
+      <button onClick={()=>{
+        console.log(입력값);
+        let copy = [...titleChange];
+      }}>글 추가</button>      
 
       {
         modal == false ? <Modal title2={title2} titleChange={titleChange} title={title} color={'skyblue'}/> : null 
