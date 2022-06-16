@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 function App() {
   let logo = 'ReactBlog';
@@ -45,13 +45,15 @@ function App() {
         입력값변경(e.target.value); 
       }}></input>
       <button onClick={()=>{
-        console.log(입력값);
-        let copy = [...titleChange];
+        let copy = [...title];
+        copy.unshift(입력값);
+        titleChange(copy);
       }}>글 추가</button>      
 
       {
         modal == false ? <Modal title2={title2} titleChange={titleChange} title={title} color={'skyblue'}/> : null 
       }
+      <Profile />
     </div>
   );
 }
@@ -65,6 +67,27 @@ function Modal(props) {
      <button>글수정</button>
     </div>
   )
+}
+
+class Profile extends React.Component {
+  constructor() {
+    super();
+    this.state = {name: 'kmk', age: 20}
+  }
+
+  changeName() {
+    this.setState({name: 'kkk'})
+  }
+
+  render() {
+    return(
+      <div>
+        <h3>프로필입니다.</h3>
+        <p>my name is {this.state.name}</p>
+        <button onClick={()=>{this.setState.bind(this)}}btn ></button>
+      </div>
+    )
+  }
 }
 
 export default App;
