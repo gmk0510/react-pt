@@ -3,10 +3,12 @@ import { useState } from 'react';
 import {Navbar, Container, Nav, Row, Col } from 'react-bootstrap';
 import bg from './img/bg.png';
 import data from './data.js';
-import {Routes, Route, Link} from 'react-router-dom'
+import {Routes, Route, Link, useNavigate, Outlet} from 'react-router-dom'
+import Detail from './routes/Detail';
 
 function App() {
   let [shoes] = useState(data);
+  let navigate = useNavigate();
 
   return (
     <div className="App">
@@ -14,13 +16,16 @@ function App() {
         <Container>
           <Navbar.Brand href="#home">ShoesShop</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/detail">detail</Nav.Link>
-            <Nav.Link href="#pricing">Cart</Nav.Link>
+            <Nav.Link onClick={()=>{navigate('./')}}>Home</Nav.Link>
+            <Nav.Link onClick={()=>{navigate('./detail')}}>detail</Nav.Link>
+            <Nav.Link href="/">Cart</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
 
+
+      <Link to="/">Main page</Link> <br />
+      <Link to="/detail">Detail page</Link>
 
       <Routes>
         <Route path="/" element={
@@ -37,7 +42,20 @@ function App() {
             </Row>
           </div>
         } />
-        <Route path="/detail" element={<div>detail page.</div>} />
+
+        <Route path="/detail" element={<Detail></Detail>} />
+        <Route path="*" element={<div>없는 페이지입니다.</div>} />
+
+        <Route path="/about" element={<About/>} >
+          <Route path="member" element={<div>멤버</div>} />
+          <Route path="location" element={<div>위치정보</div>} />
+        </Route>
+
+        <Route path="/event" element={<Evnt />}>
+          <Route path="one" element={<div>첫 주문시 양배추즙 서비스</div>} />
+          <Route path="two" element={<div>생일기념 쿠폰 받기</div>} />
+        </Route>
+      
       </Routes>
     </div>
   );
@@ -50,6 +68,24 @@ function Card(props) {
       <h4>{props.shoes.title}</h4>
       <p>{props.shoes.price}</p>
     </Col>
+  )
+}
+
+function About() {
+  return (
+    <div>
+      <h3>회사 정보.</h3>
+      <Outlet></Outlet>
+    </div>
+  )
+}
+
+function Evnt() {
+  return (
+    <div>
+      <h5>오늘의 이벤트</h5>
+      <Outlet />
+    </div>
   )
 }
 
