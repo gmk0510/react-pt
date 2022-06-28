@@ -25,7 +25,10 @@ function App() {
 
 
       <Link to="/">Main page</Link> <br />
-      <Link to="/detail">Detail page</Link>
+      <Link to="/detail">Detail page</Link> <br />
+      <Link to="/detail/0">go detail 1</Link>
+      <Link to="/detail/1">go detail 2</Link>
+      <Link to="/detail/2">go detail 3</Link>
 
       <Routes>
         <Route path="/" element={
@@ -43,7 +46,9 @@ function App() {
           </div>
         } />
 
-        <Route path="/detail" element={<Detail></Detail>} />
+        
+        <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
+
         <Route path="*" element={<div>없는 페이지입니다.</div>} />
 
         <Route path="/about" element={<About/>} >
