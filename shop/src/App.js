@@ -5,10 +5,12 @@ import bg from './img/bg.png';
 import data from './data.js';
 import {Routes, Route, Link, useNavigate, Outlet} from 'react-router-dom'
 import Detail from './routes/Detail';
+import axios from 'axios';
 
 function App() {
-  let [shoes] = useState(data);
+  let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
+  let [pt, setPt] = useState(2)
 
   return (
     <div className="App">
@@ -25,10 +27,32 @@ function App() {
 
 
       <Link to="/">Main page</Link> <br />
-      <Link to="/detail">Detail page</Link> <br />
+      <Link to="/detail">Detail page</Link>
       <Link to="/detail/0">go detail 1</Link>
-      <Link to="/detail/1">go detail 2</Link>
-      <Link to="/detail/2">go detail 3</Link>
+      <Link to="/detail/1">go detail 2</Link> 
+      <Link to="/detail/2">go detail 3</Link><br />
+
+      <button onClick={()=>{
+        setPt(pt+1);
+        axios.get(`https://codingapple1.github.io/shop/data${pt}.json`).
+        then((result)=>{
+          console.log(result.data);
+          let copy = [...shoes, ...result.data]
+          setShoes(copy);
+        })
+        .catch(()=>{
+          console.log('실패')
+        });
+        console.log(pt)
+        pt === 4 ? alert('마지막 페이지 입니다.') : console.log('fa')
+
+        Promise.all([axios.get('/urltest1'), axios.get('/urltest2')])
+        .then(()=>{
+          
+        });
+        // axios.post('/awddwa', {name : 'kim'});
+
+      }}>버튼</button>
 
       <Routes>
         <Route path="/" element={
