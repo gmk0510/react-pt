@@ -1,3 +1,12 @@
+.start {
+  opacity: 0;
+  transition: .5s;
+}
+.end {
+  opacity: 1;
+  transition: .5s;
+}
+
 .main-bg {
   height: 300px;
   /* background-image: url('./img/bg.png'); */

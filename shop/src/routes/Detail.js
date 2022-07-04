@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from  'styled-components';
+import { Nav } from 'react-bootstrap';
 
 // let YellowBtn = styled.button`
 //   background: ${props => props.bg};
@@ -18,6 +19,16 @@ import styled from  'styled-components';
 function Detail(props) {
   let [alert , setAlert] = useState(true);
   let [count , setCount] = useState(0);
+  let [tab, setTab] = useState(0)
+  let [fade2, setFade2] = useState('');
+  useEffect(()=>{
+    setTimeout(()=>{
+      setFade2('end')
+    }, 500);
+    return ()=>{
+      setFade2('');
+    }
+  }, [])
 
   // 렌더링 후 코드
   useEffect(() => {
@@ -34,7 +45,7 @@ function Detail(props) {
   let {id} = useParams();
   console.log(id);
   return (
-    <div className="container">
+    <div className={"container start"+fade2}>
       {
         alert == true ?
         <div className="alert alert-warning">
@@ -55,8 +66,43 @@ function Detail(props) {
           <button className="btn btn-danger">주문하기</button> 
         </div>
       </div>
+
+      <Nav variant="tabs" defaultActiveKey="link0">
+        <Nav.Item>
+          <Nav.Link eventKey="link0" onClick={()=>{setTab(0)}}>버튼0</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="link1" onClick={()=>{setTab(1)}}>버튼1</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="link2" onClick={()=>{setTab(2)}}>버튼2</Nav.Link>
+        </Nav.Item>
+      </Nav>
+      <TabContent className="start" tab={tab}></TabContent>
     </div> 
   )
 }
 
+function TabContent(props) {
+  // if (props.tab === 0) {
+  //   return <div>내용0</div>
+  // }
+  // if (props.tab === 1) {
+  //   return <div>내용1</div>
+  // }
+  // if (props.tab === 2) {
+  //   return <div>내용2</div>
+  // }
+  let [fade, setFade] = useState('');
+  
+  useEffect(()=>{
+    setTimeout(()=>{
+      setFade('end');
+    }, 500)
+    return ()=>{
+      setFade('')
+    }
+  }, [props.tab]);
+  return <div className={"start "+fade}>{[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][props.tab]}</div>
+}
 export default Detail;
