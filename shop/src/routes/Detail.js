@@ -78,7 +78,8 @@ function Detail(props) {
           <Nav.Link eventKey="link2" onClick={()=>{setTab(2)}}>버튼2</Nav.Link>
         </Nav.Item>
       </Nav>
-      <TabContent className="start" tab={tab}></TabContent>
+
+      <TabContent className="start" tab={tab} shoes={props.shoes}></TabContent>
     </div> 
   )
 }
@@ -103,6 +104,6 @@ function TabContent(props) {
       setFade('')
     }
   }, [props.tab]);
-  return <div className={"start "+fade}>{[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][props.tab]}</div>
+  return <div className={"start "+fade}>{[<div>{props.shoes[0].title}</div>, <div>내용0</div>, <div>내용1</div>, <div>내용2</div>][props.tab]}</div>
 }
 export default Detail;
